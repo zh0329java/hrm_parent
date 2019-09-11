@@ -1,16 +1,15 @@
-server:
-  port: 9001
 spring:
-  application:
-    name: hrm-sysmanage
-  datasource:
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/hrm_sysmanage
-      username: root
-      password: 123
-mybatis-plus:
-  mapper-locations: classpath:cn/itsource/hrm/mapper/*Mapper.xml
-  type-aliases-package: cn.itsource.hrm.domain,cn.itsource.hrm.query
+  profiles:
+    active: dev
+  cloud:
+    config:
+      name: application-sysmanage #github上面名称
+      profile: ${spring.profiles.active} #环境 java -jar -D xxx jar
+      label: master #分支
+      #uri: http:\\localhost:8848
+      discovery:
+        enabled: true
+        service-id: spring-cloud-config-server
 eureka:
   client:
     service-url:
